@@ -30,6 +30,7 @@ private:
   Capture capture;
   cv::Mat webCamFrame;
   gl::Texture webCamTexture;
+  uint32_t lastMeasuredFrame;
 };
 
 void SimpleGameApp::prepareSettings(Settings *settings)
@@ -39,6 +40,7 @@ void SimpleGameApp::prepareSettings(Settings *settings)
 
 void SimpleGameApp::setup()
 {
+  lastMeasuredFrame = 0;
   Url url("http://www.durationator.com/img/background-green.jpg");
   backgroundImage = gl::Texture(loadImage(loadUrl(url)));
   playerImage = gl::Texture(loadImage(loadResource("leprechaun.gif")));
@@ -64,13 +66,36 @@ void SimpleGameApp::mouseDown( MouseEvent event )
 {
 }
 
+int calculateRedness(const cv::Mat &matrix) {
+  const int rows = matrix.rows;
+  const int cols = matrix.cols;
+  unsigned int sum = 0;
+  
+  const unsigned char *rowPointer;
+  for (int i=0; i<rows; i++) {
+    rowPointer = matrix.ptr<uchar>(i);
+    for (int j=0; j<cols; j++) {
+      auto redval = rowPointer[j+2];
+      sum += (unsigned int) redval;
+    }
+  }
+  return sum;
+}
+
 void SimpleGameApp::update()
 {
+  const auto elapsedFrame = getElapsedFrames();
+  
   if (capture && capture.checkNewFrame()) {
     webCamFrame = toOcv(capture.getSurface());
     webCamTexture = gl::Texture(fromOcv(webCamFrame));
+    const int redness = calculateRedness(webCamFrame);
+    if ((elapsedFrame - lastMeasuredFrame) > 60) {
+      lastMeasuredFrame = elapsedFrame;
+      console() << "Redness = " << redness / 1000;
+    }
   }
-  const auto elapsedFrame = getElapsedFrames();
+  
 }
 
 void SimpleGameApp::draw()
