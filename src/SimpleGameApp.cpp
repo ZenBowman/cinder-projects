@@ -5,12 +5,19 @@
 #include "cinder/qtime/QuickTime.h"
 #include "cinder/Capture.h"
 
+#include "matrixops.h"
+#include "filter.h"
+#include "colorfilters.h"
+
 using namespace ci;
 using namespace ci::app;
 using namespace std;
 
 const int WIDTH = 800;
 const int HEIGHT = 600;
+
+MatrixOperations::RednessFilter rednessFilter;
+MatrixOperations::BluenessFilter bluenessFilter;
 
 class SimpleGameApp : public AppNative {
 public:
@@ -66,6 +73,8 @@ void SimpleGameApp::mouseDown( MouseEvent event )
 {
 }
 
+
+
 int calculateRedness(const cv::Mat &matrix) {
   const int rows = matrix.rows;
   const int cols = matrix.cols;
@@ -88,7 +97,10 @@ void SimpleGameApp::update()
   
   if (capture && capture.checkNewFrame()) {
     webCamFrame = toOcv(capture.getSurface());
-    webCamTexture = gl::Texture(fromOcv(webCamFrame));
+    cv::Mat maskMat = MatrixOperations::applyPixelFilter(webCamFrame, bluenessFilter);
+    cv::Mat newMat;
+    webCamFrame.copyTo(newMat, maskMat);
+    webCamTexture = gl::Texture(fromOcv(newMat));
     const int redness = calculateRedness(webCamFrame);
     if ((elapsedFrame - lastMeasuredFrame) > 60) {
       lastMeasuredFrame = elapsedFrame;

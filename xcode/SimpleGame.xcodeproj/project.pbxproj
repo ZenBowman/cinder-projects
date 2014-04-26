@@ -35,6 +35,8 @@
 		5BA0646DCA3444B8A25D5854 /* b2World.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68161A426EAF4B7A859F06D0 /* b2World.cpp */; };
 		64166329190B26760073258F /* player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64166327190B26760073258F /* player.cpp */; };
 		6416632B190B27C80073258F /* leprechaun.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6416632A190B27C80073258F /* leprechaun.gif */; };
+		64612A9A190C625600C55296 /* matrixops.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64612A98190C625600C55296 /* matrixops.cpp */; };
+		64612A9F190C699600C55296 /* colorfilters.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64612A9E190C699600C55296 /* colorfilters.cpp */; };
 		64EA0058190AFC2900CB8773 /* zelda.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 64EA0057190AFC2900CB8773 /* zelda.jpeg */; };
 		6617CD401C804022900AD3D2 /* b2EdgeAndCircleContact.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7B8CA1F44225429EBAE4E32C /* b2EdgeAndCircleContact.cpp */; };
 		747FEFF6D9E1492D9E4D1A58 /* b2Island.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F84D292A2D724C7B8E22B840 /* b2Island.cpp */; };
@@ -136,9 +138,14 @@
 		5EC4C595C6B8484E80990D02 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
 		5F27C458C90F4B9D894069CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		62835658DAE04E98B3FE7395 /* b2Fixture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = b2Fixture.h; path = ../blocks/Box2D/src/Box2D/Dynamics/b2Fixture.h; sourceTree = "<group>"; };
+		6405A9FD190C69F900440AA7 /* colorfilters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = colorfilters.h; path = ../include/colorfilters.h; sourceTree = "<group>"; };
 		64166327190B26760073258F /* player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = player.cpp; path = ../src/player.cpp; sourceTree = "<group>"; };
-		64166328190B26760073258F /* player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = player.h; path = ../src/player.h; sourceTree = "<group>"; };
 		6416632A190B27C80073258F /* leprechaun.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = leprechaun.gif; path = ../resources/leprechaun.gif; sourceTree = "<group>"; };
+		64612A94190C602D00C55296 /* filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = filter.h; path = ../include/filter.h; sourceTree = "<group>"; };
+		64612A95190C602D00C55296 /* matrixops.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = matrixops.h; path = ../include/matrixops.h; sourceTree = "<group>"; };
+		64612A96190C602D00C55296 /* player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = player.h; path = ../include/player.h; sourceTree = "<group>"; };
+		64612A98190C625600C55296 /* matrixops.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = matrixops.cpp; path = ../src/matrixops.cpp; sourceTree = "<group>"; };
+		64612A9E190C699600C55296 /* colorfilters.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = colorfilters.cpp; path = ../src/colorfilters.cpp; sourceTree = "<group>"; };
 		64EA0057190AFC2900CB8773 /* zelda.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = zelda.jpeg; path = ../resources/zelda.jpeg; sourceTree = "<group>"; };
 		68161A426EAF4B7A859F06D0 /* b2World.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = b2World.cpp; path = ../blocks/Box2D/src/Box2D/Dynamics/b2World.cpp; sourceTree = "<group>"; };
 		68B0B2B6FA6341318446A05A /* b2CircleShape.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = b2CircleShape.cpp; path = ../blocks/Box2D/src/Box2D/Collision/Shapes/b2CircleShape.cpp; sourceTree = "<group>"; };
@@ -232,8 +239,10 @@
 		080E96DDFE201D6D7F000001 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				64612A9E190C699600C55296 /* colorfilters.cpp */,
 				F852695417A74E6391B6FA37 /* SimpleGameApp.cpp */,
 				64166327190B26760073258F /* player.cpp */,
+				64612A98190C625600C55296 /* matrixops.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -340,7 +349,10 @@
 		29B97315FDCFA39411CA2CEA /* Headers */ = {
 			isa = PBXGroup;
 			children = (
-				64166328190B26760073258F /* player.h */,
+				6405A9FD190C69F900440AA7 /* colorfilters.h */,
+				64612A94190C602D00C55296 /* filter.h */,
+				64612A95190C602D00C55296 /* matrixops.h */,
+				64612A96190C602D00C55296 /* player.h */,
 				5EC4C595C6B8484E80990D02 /* Resources.h */,
 				C9CBEA4FE36B43ABBD9C36EA /* SimpleGame_Prefix.pch */,
 			);
@@ -626,7 +638,9 @@
 				DC82BAA2C3E34FB6A0B75202 /* b2PolygonAndCircleContact.cpp in Sources */,
 				1D88254035D04032AAEC857C /* b2PolygonContact.cpp in Sources */,
 				38563A2303784CBF80FEF69E /* b2DistanceJoint.cpp in Sources */,
+				64612A9F190C699600C55296 /* colorfilters.cpp in Sources */,
 				E1C463F7BB374BEFAEAD3371 /* b2FrictionJoint.cpp in Sources */,
+				64612A9A190C625600C55296 /* matrixops.cpp in Sources */,
 				3134D465B3484291A3805237 /* b2GearJoint.cpp in Sources */,
 				DB04562D4966464C93198C61 /* b2Joint.cpp in Sources */,
 				4A20221DA7024AB38107F7F7 /* b2MouseJoint.cpp in Sources */,
@@ -744,6 +758,10 @@
 					../blocks/Box2D/src,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-Iinclude",
+				);
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include ../blocks/FMOD/include ../blocks/OpenCV/include ../blocks/OpenCV/include/opencv2 ../blocks/QuickTime/include";
 			};
@@ -764,6 +782,10 @@
 					../blocks/Box2D/src,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-Iinclude",
+				);
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include ../blocks/FMOD/include ../blocks/OpenCV/include ../blocks/OpenCV/include/opencv2 ../blocks/QuickTime/include";
 			};
