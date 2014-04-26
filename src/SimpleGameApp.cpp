@@ -1,8 +1,9 @@
 #include "cinder/app/AppNative.h"
 #include "cinder/gl/gl.h"
 #include "cinder/gl/Texture.h"
-
+#include "CinderOpenCV.h"
 #include "cinder/qtime/QuickTime.h"
+#include "cinder/Capture.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -20,11 +21,15 @@ public:
 	void update();
 	void draw();
   
+  
 private:
   qtime::MovieGl playerMovie;
   gl::Texture backgroundImage;
   gl::Texture playerImage;
   Vec2i playerPosition;
+  Capture capture;
+  cv::Mat webCamFrame;
+  gl::Texture webCamTexture;
 };
 
 void SimpleGameApp::prepareSettings(Settings *settings)
@@ -38,8 +43,11 @@ void SimpleGameApp::setup()
   backgroundImage = gl::Texture(loadImage(loadUrl(url)));
   playerImage = gl::Texture(loadImage(loadResource("leprechaun.gif")));
   playerMovie = qtime::MovieGl(loadResource("leprechaun.gif"));
+  webCamTexture = backgroundImage;
   playerMovie.setLoop();
   playerMovie.play();
+  capture = Capture( 640, 480 );
+  capture.start();
 }
 
 void SimpleGameApp::keyDown(cinder::app::KeyEvent keyEvent)
@@ -58,6 +66,10 @@ void SimpleGameApp::mouseDown( MouseEvent event )
 
 void SimpleGameApp::update()
 {
+  if (capture && capture.checkNewFrame()) {
+    webCamFrame = toOcv(capture.getSurface());
+    webCamTexture = gl::Texture(fromOcv(webCamFrame));
+  }
   const auto elapsedFrame = getElapsedFrames();
 }
 
@@ -67,7 +79,7 @@ void SimpleGameApp::draw()
 	gl::clear( Color( 0, 0, 0 ) );
   
   backgroundImage.enableAndBind();
-  gl::draw(backgroundImage, getWindowBounds());
+  gl::draw(webCamTexture, getWindowBounds());
   
   const int x1 = playerPosition.x * 100;
   const int x2 = x1 + 100;
